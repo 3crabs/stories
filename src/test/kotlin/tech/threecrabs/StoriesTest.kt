@@ -17,7 +17,7 @@ class StoriesTest : FeatureSpec() {
     init {
         feature("истории") {
 
-            scenario("endpoint существует") {
+            scenario("endpoint на создание существует") {
                 storiesClient.addStory(addStory).status() shouldBe HttpStatus.CREATED
             }
         }
