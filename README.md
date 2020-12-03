@@ -1,4 +1,5 @@
-## Feature http-client documentation
+## Stories
 
-- [Micronaut Micronaut HTTP Client documentation](https://docs.micronaut.io/latest/guide/index.html#httpClient)
-
+### install
+    docker build -t stories .
+    docker run -p 8080:8080 stories
