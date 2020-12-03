@@ -1,7 +1,10 @@
 package tech.threecrabs
 
 import io.kotest.core.spec.style.FeatureSpec
-import io.kotest.matchers.nulls.shouldBeNull
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.micronaut.http.HttpStatus
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
@@ -21,19 +24,17 @@ class IndexTest : FeatureSpec() {
             }
 
             scenario("тело ответа не пустое") {
-                indexClient.index().body().shouldBeNull()
+                indexClient.index().body().shouldNotBeNull()
             }
 
-            scenario("есть ссылка на swagger документацию") {
-                indexClient.index().body()!!.contains("<a href='/swagger-ui/index.html'>swagger-ui</a>") shouldBe true
-            }
-
-            scenario("есть ссылка на redoc документацию") {
-                indexClient.index().body()!!.contains("<a href='/redoc/index.html'>swagger-ui</a>") shouldBe true
-            }
-
-            scenario("есть ссылка на rapidoc документацию") {
-                indexClient.index().body()!!.contains("<a href='/rapidoc/index.html'>swagger-ui</a>") shouldBe true
+            scenario("есть ссылки документации") {
+                forAll(
+                    row("<a href='/swagger-ui/index.html'>swagger-ui</a>"),
+                    row("<a href='/redoc/index.html'>redoc</a>"),
+                    row("<a href='/rapidoc/index.html'>rapidoc</a>")
+                ) { link ->
+                    indexClient.index().body()!!.contains(link).shouldBeTrue()
+                }
             }
         }
     }
