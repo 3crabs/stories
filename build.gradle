@@ -34,11 +34,15 @@ dependencies {
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.micronaut.views:micronaut-views-thymeleaf")
+
+    // open-api
+    kapt("io.micronaut.configuration:micronaut-openapi")
+    implementation("io.swagger.core.v3:swagger-annotations")
 }
 
 
 application {
-    mainClass.set("tech.threecrabs.ApplicationKt")
+    mainClass.set("tech.threecrabs.Application")
 }
 
 java {
@@ -56,7 +60,10 @@ tasks {
             jvmTarget = "11"
         }
     }
-
-
 }
 
+kapt {
+    arguments {
+        arg("micronaut.openapi.views.spec", "redoc.enabled=true,rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop")
+    }
+}
