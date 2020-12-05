@@ -38,6 +38,16 @@ dependencies {
     // open-api
     kapt("io.micronaut.configuration:micronaut-openapi")
     implementation("io.swagger.core.v3:swagger-annotations")
+
+    // db
+    kapt("io.micronaut.data:micronaut-data-processor")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    implementation("io.micronaut.data:micronaut-data-jdbc")
+    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+    runtimeOnly("org.postgresql:postgresql")
+
+    // flyway
+    implementation("io.micronaut.flyway:micronaut-flyway")
 }
 
 
