@@ -2,6 +2,9 @@ micronaut:
   application:
     name: stories
 
+  security:
+    authentication: bearer
+
   router:
     static-resources:
       swagger:

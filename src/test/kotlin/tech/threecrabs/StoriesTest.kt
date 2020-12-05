@@ -1,13 +1,13 @@
 package tech.threecrabs
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.core.test.TestCase
 import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
 import io.micronaut.http.HttpStatus
+import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.test.extensions.kotest.annotation.MicronautTest
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
 import javax.inject.Inject
 
 @MicronautTest
@@ -25,7 +25,8 @@ class StoriesTest : FeatureSpec() {
         feature("истории") {
 
             scenario("endpoint на создание возвращает created") {
-                storiesClient.addStory(addStory).status() shouldBe HttpStatus.CREATED
+                val e = shouldThrow<HttpClientResponseException> { storiesClient.addStory(addStory) }
+                e.status shouldBe HttpStatus.UNAUTHORIZED
             }
 
             scenario("история добавляется в базу") {
