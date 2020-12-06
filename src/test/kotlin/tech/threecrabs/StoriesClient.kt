@@ -2,6 +2,7 @@ package tech.threecrabs
 
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.annotation.Body
+import io.micronaut.http.annotation.Header
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.client.annotation.Client
 
@@ -9,5 +10,5 @@ import io.micronaut.http.client.annotation.Client
 interface StoriesClient {
 
     @Post
-    fun addStory(@Body story: Story): HttpResponse<Story>
+    fun addStory(@Header authorization: String?, @Body story: Story): HttpResponse<Story>
 }
